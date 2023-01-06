@@ -38,6 +38,17 @@ export class QuestionsService {
         ],
         2
       ),
+      new Question(
+        "Colors",
+        "Which color Israels flag have?",
+        [
+          "Red anf blue",
+          "Off-white and green",
+          "Blue and white",
+          "Grenn , yellow and red",
+        ],
+        2
+      ),
     ];
   }
 

@@ -14,13 +14,13 @@ function Quiz() {
 
   return (
     <div className="quiz container-fluid">
-      <div className="row-sm-12 text-center">
-        <h1 className="h1 mb-2">The Quiz Component</h1>
-        <hr></hr>
+      <h1 className="h1 mb-2 text-center">The Quiz Component</h1>
+      <hr className=""></hr>
+      <div className="row-sm-10">
+        <ul className="list-group d-flex flex-row flex-wrap justify-content-center">
+          {quizItemsList}
+        </ul>
       </div>
-      <ul className="list-group d-flex flex-row flex-wrap justify-content-center">
-        {quizItemsList}
-      </ul>
     </div>
   );
 }
