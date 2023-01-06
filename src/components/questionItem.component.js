@@ -13,6 +13,7 @@ function QuestionItem(props) {
   const [question, setQuestion] = useState(questionRetrived);
 
   function onAnswer(event, index) {
+    console.log(index);
     questionRetrived.answered = true;
     questionRetrived.isTrue = question.answered =
       question.correctAnswerIndex == index;
@@ -23,10 +24,12 @@ function QuestionItem(props) {
     return (
       <li className="list-group-item m-3" key={index}>
         <input
-          onClick={(event, index) => onAnswer(event, index)}
+          onClick={(event) => onAnswer(event, index)}
           className={
             "form-control " +
-            (question.isTrue && question.answered
+            (question.isTrue &&
+            question.answered &&
+            index == question.correctAnswerIndex
               ? "bg-success"
               : "bg-secondary")
           }
