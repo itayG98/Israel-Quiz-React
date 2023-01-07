@@ -5,32 +5,21 @@ import QuestionsService from "../services/questions.service";
 function Quiz() {
   let questionsService = new QuestionsService();
   let initQuestions = questionsService.getQuestions();
-
   const [quizFinished, setQuizFinished] = useState(false);
   const [questionsList, setQuestionsList] = useState(initQuestions);
+
   let onAnswerd = function (id, index) {
-    let question = questionsList.find((elem) => {
-      elem.Id == id;
-    });
-    question.choosed = index;
-    question.isAnswerd = true;
-    setQuestionsList(
-      questionsList.map((elem) => {
-        if (elem.Id == id) {
-          elem.IsAnswered = true;
-          elem.choosed = index;
-        }
-      })
-    );
-    setQuizFinished(
-      questionsList.every((elem) => {
-        elem.IsAnswered == true;
-      })
-    );
+    let questionNumber = questionsList.findIndex((elem) => elem.Id === id);
+    if (questionNumber === -1) return undefined;
+    questionsList[questionNumber].IsAnswered = true;
+    questionsList[questionNumber].choosed = index;
+    setQuestionsList(questionsList);
+    let quizState = questionsList.every((elem) => elem.IsAnswered === true);
+    setQuizFinished(quizState);
     return {
       id: id,
       clickedIndex: index,
-      correctIndex: question.correctAnswerIndex,
+      correctIndex: questionsList[questionNumber].correctAnswerIndex,
       IsAnswered: true,
     };
   };

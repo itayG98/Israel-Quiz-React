@@ -2,9 +2,19 @@ import { useState } from "react";
 
 function QuestionItem(props) {
   let classes = (index) => {
-    if (question.clickedIndex == index && question.isTrue == true)
+    if (
+      question.IsAnswered === true &&
+      index === question.correctIndex &&
+      question.correctIndex === question.clickedIndex
+    )
       return "bg-success";
-    else {
+    else if (
+      question.clickedIndex === index &&
+      question.correctIndex != question.clickedIndex &&
+      question.IsAnswered === true
+    ) {
+      return "bg-danger";
+    } else {
       return "bg-secondary";
     }
   };
@@ -13,7 +23,7 @@ function QuestionItem(props) {
   let questionRetrived = {
     id: props.id,
     clickedIndex: null,
-    correctIndex : props.correctIndex,
+    correctIndex: props.correctIndex,
     IsAnswered: null,
   };
 
