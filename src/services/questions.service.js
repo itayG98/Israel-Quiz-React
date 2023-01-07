@@ -36,7 +36,7 @@ export class QuestionsService {
           "Israel new State",
           "Nothing",
         ],
-        2
+        0
       ),
       new Question(
         "Colors",

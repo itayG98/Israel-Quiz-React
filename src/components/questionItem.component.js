@@ -1,18 +1,29 @@
 import { useState } from "react";
 
 function QuestionItem(props) {
+  let classes = (index) => {
+    if (question.clickedIndex == index && question.isTrue == true)
+      return "bg-success";
+    else {
+      return "bg-secondary";
+    }
+  };
   let answerHandler = props.answerHandler;
+  let quizFinished = props.quizFinished;
   let questionRetrived = {
     id: props.id,
     clickedIndex: null,
-    isTrue: null,
+    correctIndex : props.correctIndex,
     IsAnswered: null,
   };
+
   const [question, setQuestion] = useState(questionRetrived);
 
   function onAnswer(event, index) {
-    let questionState = answerHandler(questionRetrived.id, index);
-    setQuestion(questionState);
+    if (question.IsAnswered == null) {
+      let questionState = answerHandler(questionRetrived.id, index);
+      setQuestion(questionState);
+    }
   }
 
   let answersList = props.answers.map((answer, index) => {
@@ -20,12 +31,7 @@ function QuestionItem(props) {
       <li className="list-group-item m-3" key={index}>
         <input
           onClick={(event) => onAnswer(event, index)}
-          className={
-            "form-control " +
-            (question.isTrue && question.IsAnswered
-              ? "bg-success"
-              : "bg-secondary")
-          }
+          className={"form-control " + classes(index)}
           type="button"
           value={answer}
         ></input>

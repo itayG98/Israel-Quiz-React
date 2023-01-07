@@ -1,22 +1,40 @@
+import { useState } from "react";
 import QuestionItem from "../components/questionItem.component";
 import QuestionsService from "../services/questions.service";
-import { v4 as uuidv4 } from "uuid";
 
 function Quiz() {
   let questionsService = new QuestionsService();
-  let questionsList = questionsService.getQuestions();
+  let initQuestions = questionsService.getQuestions();
+
+  const [quizFinished, setQuizFinished] = useState(false);
+  const [questionsList, setQuestionsList] = useState(initQuestions);
   let onAnswerd = function (id, index) {
-    let answerd = questionsService.getQuestionsById(id);
-    if (answerd) {
-      answerd.onAnswer(index);
-      return {
-        id: id,
-        clickedIndex: index,
-        isTrue: answerd.IsTrue,
-        IsAnswered: true,
-      };
-    }
+    let question = questionsList.find((elem) => {
+      elem.Id == id;
+    });
+    question.choosed = index;
+    question.isAnswerd = true;
+    setQuestionsList(
+      questionsList.map((elem) => {
+        if (elem.Id == id) {
+          elem.IsAnswered = true;
+          elem.choosed = index;
+        }
+      })
+    );
+    setQuizFinished(
+      questionsList.every((elem) => {
+        elem.IsAnswered == true;
+      })
+    );
+    return {
+      id: id,
+      clickedIndex: index,
+      correctIndex: question.correctAnswerIndex,
+      IsAnswered: true,
+    };
   };
+
   let quizItemsList = questionsList.map((item) => {
     return (
       <li className="list-group-item m-3" key={item.Id}>
@@ -26,6 +44,7 @@ function Quiz() {
           description={item.description}
           title={item.title}
           answerHandler={onAnswerd}
+          quizFinished={quizFinished}
         />
       </li>
     );
