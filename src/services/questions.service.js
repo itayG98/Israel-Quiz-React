@@ -55,6 +55,9 @@ export class QuestionsService {
   getQuestions() {
     return this.questions;
   }
+  getQuestionsById(id) {
+    return this.questions.find((q) => q.Id == id);
+  }
 }
 
 export default QuestionsService;

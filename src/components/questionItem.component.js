@@ -1,35 +1,28 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
-import { Question } from "../models/question.model";
 
 function QuestionItem(props) {
+  let answerHandler = props.answerHandler;
   let questionRetrived = {
-    answers: props.question.answers,
-    correctAnswerIndex: props.question.correctAnswerIndex,
-    id: props.question.Id,
+    id: props.id,
+    clickedIndex: null,
     isTrue: null,
-    answered: null,
+    IsAnswered: null,
   };
   const [question, setQuestion] = useState(questionRetrived);
 
   function onAnswer(event, index) {
-    console.log(index);
-    questionRetrived.answered = true;
-    questionRetrived.isTrue = question.answered =
-      question.correctAnswerIndex == index;
-    setQuestion(questionRetrived);
+    let questionState = answerHandler(questionRetrived.id, index);
+    setQuestion(questionState);
   }
 
-  let answersList = questionRetrived.answers.map((answer, index) => {
+  let answersList = props.answers.map((answer, index) => {
     return (
       <li className="list-group-item m-3" key={index}>
         <input
           onClick={(event) => onAnswer(event, index)}
           className={
             "form-control " +
-            (question.isTrue &&
-            question.answered &&
-            index == question.correctAnswerIndex
+            (question.isTrue && question.IsAnswered
               ? "bg-success"
               : "bg-secondary")
           }
@@ -42,8 +35,8 @@ function QuestionItem(props) {
 
   return (
     <div className="container">
-      <h2>{props.question.title}</h2>
-      <strong>{props.question.description}</strong>
+      <h2>{props.title}</h2>
+      <strong>{props.description}</strong>
       <ul>{answersList}</ul>
     </div>
   );
