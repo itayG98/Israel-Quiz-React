@@ -5,14 +5,22 @@ import QuestionsService from "../services/questions.service";
 function Quiz() {
   let questionsService = new QuestionsService();
   let initQuestions = questionsService.getQuestions();
+  const [isAddingQuestion, setAddingQuestion] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
   const [questionsList, setQuestionsList] = useState(initQuestions);
+
+  let onAddQuestion = function () {
+    if (!isAddingQuestion) {
+      setAddingQuestion(true);
+    }
+  };
 
   let onSubmit = function () {
     let quizState = questionsList.every((elem) => elem.IsAnswered === true);
     if (!quizState) {
     }
     setQuizFinished(quizState);
+    setAddingQuestion(false);
   };
 
   let modalContent = function () {
@@ -62,9 +70,14 @@ function Quiz() {
 
   return (
     <div className="quiz container-fluid">
-      <h1 className="h1 mb-2 text-center bg-success text-light ">
-        The Israeli Quiz{" "}
-      </h1>
+      <nav class="navbar bg-success sticky-top">
+        <div class="container-fluid">
+          <h1 className=" text-light ">The Israeli Quiz</h1>
+          <button className="btn btn-outline-light" onClick={onAddQuestion}>
+            Add Question
+          </button>
+        </div>
+      </nav>
       <div className="row-sm-10">
         <ul className="list-group d-flex flex-row flex-wrap justify-content-center">
           {quizItemsList}
@@ -101,6 +114,9 @@ function Quiz() {
             </button>
           </div>
         </div>
+      </div>
+      <div className={"row-sm-10" + isAddingQuestion === true ? "d-none" : ""}>
+        <addQuizFrom />
       </div>
     </div>
   );
