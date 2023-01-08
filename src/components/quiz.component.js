@@ -1,6 +1,7 @@
 import { useState } from "react";
 import QuestionItem from "../components/questionItem.component";
 import QuestionsService from "../services/questions.service";
+import AddQuizFrom from "./addQuizForm.component";
 
 function Quiz() {
   let questionsService = new QuestionsService();
@@ -70,8 +71,8 @@ function Quiz() {
 
   return (
     <div className="quiz container-fluid">
-      <nav class="navbar bg-success sticky-top">
-        <div class="container-fluid">
+      <nav className="navbar bg-success sticky-top">
+        <div className="container-fluid">
           <h1 className=" text-light ">The Israeli Quiz</h1>
           <button className="btn btn-outline-light" onClick={onAddQuestion}>
             Add Question
@@ -96,18 +97,18 @@ function Quiz() {
         </div>
       </div>
       <div
-        class="modal fade "
+        className="modal fade "
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-body">{modalContent()}</div>
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-body">{modalContent()}</div>
             <button
               type="button"
-              class="btn btn-secondary"
+              className="btn btn-secondary"
               data-bs-dismiss="modal"
             >
               Close
@@ -115,9 +116,11 @@ function Quiz() {
           </div>
         </div>
       </div>
-      <div className={"row-sm-10" + isAddingQuestion === true ? "d-none" : ""}>
-        <addQuizFrom />
-      </div>
+      {isAddingQuestion === true ? (
+        <div className="row-sm-10">
+          <AddQuizFrom />
+        </div>
+      ) : undefined}
     </div>
   );
 }
