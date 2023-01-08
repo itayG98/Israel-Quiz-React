@@ -42,10 +42,10 @@ export class QuestionsService {
         "Colors",
         "Which color Israels flag have?",
         [
-          "Red anf blue",
+          "Red and blue",
           "Off-white and green",
           "Blue and white",
-          "Grenn , yellow and red",
+          "Green , yellow and red",
         ],
         2
       ),

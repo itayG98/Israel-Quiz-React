@@ -51,7 +51,7 @@ function QuestionItem(props) {
   return (
     <div className="card">
       <div className="card-header bg-primary">
-        <h2 className="text-center card-title">{props.title}</h2>
+        <h2 className="text-center card-title text-light">{props.title}</h2>
       </div>
       <div className="card-body">
         <strong className="card-text">{props.description}</strong>
