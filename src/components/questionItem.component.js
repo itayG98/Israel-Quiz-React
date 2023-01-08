@@ -2,25 +2,21 @@ import { useState } from "react";
 
 function QuestionItem(props) {
   let classes = (index) => {
-    if (question.IsAnswered != true) {
-      return "bg-secondary";
+    if (quizFinished) {
+      if (index === question.correctIndex) {
+        return "bg-success";
+      } else if (
+        question.clickedIndex === index &&
+        question.correctIndex != index
+      ) {
+        return "bg-danger";
+      }
+    } else if (index === question.clickedIndex) {
+      return "bg-warning";
     }
-    if (
-      question.IsAnswered === true &&
-      index === question.correctIndex &&
-      question.correctIndex === question.clickedIndex
-    )
-      return "bg-success disabled";
-    else if (
-      question.clickedIndex === index &&
-      question.correctIndex != question.clickedIndex &&
-      question.IsAnswered === true
-    ) {
-      return "bg-danger disabled";
-    } else {
-      return "bg-secondary disabled";
-    }
+    return "bg-secondary";
   };
+
   let answerHandler = props.answerHandler;
   let quizFinished = props.quizFinished;
   let questionRetrived = {
@@ -33,7 +29,7 @@ function QuestionItem(props) {
   const [question, setQuestion] = useState(questionRetrived);
 
   function onAnswer(event, index) {
-    if (question.IsAnswered == null) {
+    if (!quizFinished) {
       let questionState = answerHandler(questionRetrived.id, index);
       setQuestion(questionState);
     }
