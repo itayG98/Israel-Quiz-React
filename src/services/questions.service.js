@@ -58,6 +58,10 @@ export class QuestionsService {
   getQuestionsById(id) {
     return this.questions.find((q) => q.Id == id);
   }
+
+  AddQuestion(question) {
+    if (typeof question === Question) this.questions.push(question);
+  }
 }
 
 export default QuestionsService;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import QuestionItem from "../components/questionItem.component";
+import Question from "../models/question.model";
 import QuestionsService from "../services/questions.service";
 import AddQuizFrom from "./addQuizForm.component";
 
@@ -10,7 +11,7 @@ function Quiz() {
   const [quizFinished, setQuizFinished] = useState(false);
   const [questionsList, setQuestionsList] = useState(initQuestions);
 
-  let onAddQuestion = function () {
+  let onToggleAddQuestion = function () {
     if (!isAddingQuestion) {
       setAddingQuestion(true);
     }
@@ -69,12 +70,22 @@ function Quiz() {
     );
   });
 
+  let onAddQuestion = (question) => {
+    if (typeof question === Question) {
+      questionsService.AddQuestion(question);
+      setQuestionsList(questionsList.push(question));
+    }
+  };
+
   return (
     <div className="quiz container-fluid">
       <nav className="navbar bg-success sticky-top">
         <div className="container-fluid">
           <h1 className=" text-light ">The Israeli Quiz</h1>
-          <button className="btn btn-outline-light" onClick={onAddQuestion}>
+          <button
+            className="btn btn-outline-light"
+            onClick={onToggleAddQuestion}
+          >
             Add Question
           </button>
         </div>
@@ -118,7 +129,7 @@ function Quiz() {
       </div>
       {isAddingQuestion === true ? (
         <div className="row-sm-10">
-          <AddQuizFrom />
+          <AddQuizFrom addQuestionHandler={onAddQuestion} />
         </div>
       ) : undefined}
     </div>
