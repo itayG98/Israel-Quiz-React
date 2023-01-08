@@ -50,10 +50,14 @@ function QuestionItem(props) {
   });
 
   return (
-    <div className="container">
-      <h2>{props.title}</h2>
-      <strong>{props.description}</strong>
-      <ul>{answersList}</ul>
+    <div className="card">
+      <div className="card-header bg-primary">
+        <h2 className="text-center card-title">{props.title}</h2>
+      </div>
+      <div className="card-body">
+        <strong className="card-text">{props.description}</strong>
+        <ul>{answersList}</ul>
+      </div>
     </div>
   );
 }
