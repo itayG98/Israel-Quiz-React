@@ -2,20 +2,23 @@ import { useState } from "react";
 
 function QuestionItem(props) {
   let classes = (index) => {
+    if (question.IsAnswered != true) {
+      return "bg-secondary";
+    }
     if (
       question.IsAnswered === true &&
       index === question.correctIndex &&
       question.correctIndex === question.clickedIndex
     )
-      return "bg-success";
+      return "bg-success disabled";
     else if (
       question.clickedIndex === index &&
       question.correctIndex != question.clickedIndex &&
       question.IsAnswered === true
     ) {
-      return "bg-danger";
+      return "bg-danger disabled";
     } else {
-      return "bg-secondary";
+      return "bg-secondary disabled";
     }
   };
   let answerHandler = props.answerHandler;
@@ -39,12 +42,12 @@ function QuestionItem(props) {
   let answersList = props.answers.map((answer, index) => {
     return (
       <li className="list-group-item m-3" key={index}>
-        <input
+        <a
           onClick={(event) => onAnswer(event, index)}
-          className={"form-control " + classes(index)}
-          type="button"
-          value={answer}
-        ></input>
+          className={"form-control btn " + classes(index)}
+        >
+          {answer}
+        </a>
       </li>
     );
   });
