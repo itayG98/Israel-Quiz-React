@@ -15,6 +15,8 @@ function Quiz() {
   let onToggleAddQuestion = function () {
     if (!isAddingQuestion) {
       setAddingQuestion(true);
+    } else {
+      setAddingQuestion(false);
     }
   };
 
@@ -63,7 +65,7 @@ function Quiz() {
             answers={item.answers}
             description={item.description}
             title={item.title}
-            answerHandler={onAnswerd}
+            addQuestionHandler={onAnswerd}
             quizFinished={quizFinished}
           />
         </li>
@@ -72,10 +74,9 @@ function Quiz() {
   });
 
   let onAddQuestion = (question) => {
-    if (typeof question === Question) {
-      questionsService.AddQuestion(question);
-      setQuestionsList(questionsList.push(question));
-    }
+    questionsService.AddQuestion(question);
+    let updated = questionsService.getQuestions();
+    setQuestionsList(updated);
   };
 
   return (
@@ -133,6 +134,7 @@ function Quiz() {
           <AddQuizFrom addQuestionHandler={onAddQuestion} />
         </div>
       ) : undefined}
+
       <hr></hr>
       <footer className="card-footer text-muted">
         <p

@@ -1,20 +1,25 @@
 import { useState } from "react";
+import Question from "../models/question.model";
 ///title, description, answers, correctAnswerIndex
 
 function AddQuizFrom(props) {
   const answersLength = 4;
   let addQuestion = props.addQuestionHandler;
+
   let onAddQuestion = function () {
-    let title = document.querySelector("input[name=title]").value;
-    let description = document.querySelector("input[name=description]").value;
-    let answers = [];
-    let correctAnswerIndex = document.querySelector(
-      "input[name=options]:checked"
-    ).value;
-    let answersInputs = document.querySelectorAll("input.answer");
-    Array.from(answersInputs).map((inpt) => answers.push(inpt.value));
-    console.log(answers);
-    addQuestion({});
+    if (document.querySelector("form").checkValidity() === true) {
+      let title = document.querySelector("input[name=title]").value;
+      let description = document.querySelector("input[name=description]").value;
+      let answers = [];
+      let correctAnswerIndex = document.querySelector(
+        "input[name=options]:checked"
+      ).value;
+      let answersInputs = document.querySelectorAll("input.answer");
+      Array.from(answersInputs).map((inpt) => answers.push(inpt.value));
+      addQuestion(
+        new Question(title, description, answers, correctAnswerIndex)
+      );
+    }
   };
 
   let answers = [...Array(answersLength)].map((num, index) => {
@@ -26,6 +31,8 @@ function AddQuizFrom(props) {
             className="form-control answer"
             type="text"
             name={index}
+            required
+            minLength={3}
           ></input>
           <input
             type="radio"
@@ -47,7 +54,13 @@ function AddQuizFrom(props) {
       <form>
         <div className="form-group card mt-3">
           <label className="form-label fw-bolder">Title</label>
-          <input className="form-control" type="text" name="title"></input>
+          <input
+            className="form-control"
+            required
+            minLength={3}
+            type="text"
+            name="title"
+          ></input>
         </div>
         <div className="form-group card mt-3">
           <label className="form-label fw-bolder">description</label>
@@ -55,6 +68,8 @@ function AddQuizFrom(props) {
             className="form-control"
             type="text"
             name="description"
+            required
+            minLength={3}
           ></input>
         </div>
         <div className="form-group card mt-3">
@@ -65,9 +80,9 @@ function AddQuizFrom(props) {
         </div>
         <div className="form-group card mt-3">
           <button
-            onClick={onAddQuestion}
             type="button"
             className="btn btn-primary"
+            onClick={onAddQuestion}
           >
             Add Question
           </button>

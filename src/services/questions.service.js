@@ -60,7 +60,7 @@ export class QuestionsService {
   }
 
   AddQuestion(question) {
-    if (typeof question === Question) this.questions.push(question);
+    this.questions.push(question);
   }
 }
 
