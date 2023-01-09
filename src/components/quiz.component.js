@@ -5,6 +5,7 @@ import QuestionsService from "../services/questions.service";
 import AddQuizFrom from "./addQuizForm.component";
 
 function Quiz() {
+  let cursorPointer = { cursor: "pointer" };
   let questionsService = new QuestionsService();
   let initQuestions = questionsService.getQuestions();
   const [isAddingQuestion, setAddingQuestion] = useState(false);
@@ -132,6 +133,17 @@ function Quiz() {
           <AddQuizFrom addQuestionHandler={onAddQuestion} />
         </div>
       ) : undefined}
+      <hr></hr>
+      <footer className="card-footer text-muted">
+        <p
+          style={cursorPointer}
+          onClick={() => {
+            window.location.replace("https://github.com/itayG98");
+          }}
+        >
+          GitHub : @ItayG98
+        </p>
+      </footer>
     </div>
   );
 }
