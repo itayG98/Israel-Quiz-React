@@ -7,7 +7,8 @@ function AddQuizFrom(props) {
   let addQuestion = props.addQuestionHandler;
 
   let onAddQuestion = function () {
-    if (document.querySelector("form").checkValidity() === true) {
+    let form = document.querySelector("form");
+    if (form.checkValidity() === true) {
       let title = document.querySelector("input[name=title]").value;
       let description = document.querySelector("input[name=description]").value;
       let answers = [];
@@ -19,6 +20,10 @@ function AddQuizFrom(props) {
       addQuestion(
         new Question(title, description, answers, correctAnswerIndex)
       );
+      form.querySelector("input:checked").checked = false;
+      form
+        .querySelectorAll("input[type=text]")
+        .forEach((inpt) => (inpt.value = ""));
     }
   };
 
@@ -40,6 +45,7 @@ function AddQuizFrom(props) {
             name="options"
             id={"btn" + index}
             value={index}
+            required
           />
           <label className="btn btn-outline-success" htmlFor={"btn" + index}>
             Correct Answer
