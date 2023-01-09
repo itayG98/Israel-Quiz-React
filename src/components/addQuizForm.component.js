@@ -11,8 +11,9 @@ function AddQuizFrom(props) {
     let correctAnswerIndex = document.querySelector(
       "input[name=options]:checked"
     ).value;
-    console.log(correctAnswerIndex);
-    for (let i = 0; i < answersLength; i++) {}
+    let answersInputs = document.querySelectorAll("input.answer");
+    Array.from(answersInputs).map((inpt) => answers.push(inpt.value));
+    console.log(answers);
     addQuestion({});
   };
 
@@ -21,7 +22,11 @@ function AddQuizFrom(props) {
       <li className="list-group-item m-3" key={index}>
         <div className="form-group ">
           <label className="form-label fw-bolder">answer {index + 1}</label>
-          <input className="form-control" type="text" name={index}></input>
+          <input
+            className="form-control answer"
+            type="text"
+            name={index}
+          ></input>
           <input
             type="radio"
             className="btn-check"
