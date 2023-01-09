@@ -1,10 +1,22 @@
-import { useState, props } from "react";
-
-function AddQuizFrom() {
-  let AddQuestion = props.addQuestionHandler;
+import { useState } from "react";
+///title, description, answers, correctAnswerIndex
+const answers = 3;
+function AddQuizFrom(props) {
+  let addQuestion = props.addQuestionHandler;
   let onAddQuestion = function () {
-    AddQuestion({});
+    addQuestion({});
   };
+
+  let answers = [...Array(3)].map((num, index) => {
+    return (
+      <li className="list-group-item m-3" key={index}>
+        <div className="form-group">
+          <label className="form-label">answer {index}</label>
+          <input className="form-control" type="text"></input>
+        </div>
+      </li>
+    );
+  });
 
   return (
     <div className="col-sm-9 m-auto">
@@ -13,6 +25,11 @@ function AddQuizFrom() {
           <label className="form-label">Title</label>
           <input className="form-control" type="text"></input>
         </div>
+        <div className="form-group">
+          <label className="form-label">description</label>
+          <input className="form-control" type="text"></input>
+        </div>
+        <div className="form-group">{answers}</div>
       </form>
     </div>
   );

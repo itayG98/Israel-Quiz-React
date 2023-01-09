@@ -17,7 +17,7 @@ function QuestionItem(props) {
     return "bg-secondary";
   };
 
-  let answerHandler = props.answerHandler;
+  let answerHandler = props.addQuestionHandler;
   let quizFinished = props.quizFinished;
   let questionRetrived = {
     id: props.id,
