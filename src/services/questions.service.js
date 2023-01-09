@@ -1,7 +1,9 @@
 import { Question } from "../models/question.model";
+import { useState, useEffect } from "react";
 
 export class QuestionsService {
   URL = "http://localhost:3004/questions";
+  questions = [];
   constructor() {
     // constructor(title, description, answers, correctAnswerIndex)
     this.questions = [
@@ -52,11 +54,14 @@ export class QuestionsService {
       ),
     ];
   }
-  getQuestions() {
-    return this.questions;
+  async getQuestions() {
+    return fetch(URL)
+      .then((res) => res.json())
+      .then((jsonStr) => JSON.parse(jsonStr));
   }
+
   getQuestionsById(id) {
-    return this.questions.find((q) => q.Id == id);
+    return this.questions.find((q) => q.Id == id).slice();
   }
 
   AddQuestion(question) {

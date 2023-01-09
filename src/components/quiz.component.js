@@ -4,10 +4,10 @@ import Question from "../models/question.model";
 import QuestionsService from "../services/questions.service";
 import AddQuizFrom from "./addQuizForm.component";
 
-function Quiz() {
+async function Quiz() {
   let cursorPointer = { cursor: "pointer" };
   let questionsService = new QuestionsService();
-  let Initquestions = questionsService.getQuestions();
+  let Initquestions = await questionsService.getQuestions();
   const [isAddingQuestion, setAddingQuestion] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
   const [questionsList, setQuestionsList] = useState(Initquestions);
