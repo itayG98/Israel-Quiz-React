@@ -1,17 +1,17 @@
 import { useState } from "react";
 ///title, description, answers, correctAnswerIndex
-const answers = 3;
+
 function AddQuizFrom(props) {
   let addQuestion = props.addQuestionHandler;
   let onAddQuestion = function () {
     addQuestion({});
   };
 
-  let answers = [...Array(3)].map((num, index) => {
+  let answers = [...Array(4)].map((num, index) => {
     return (
       <li className="list-group-item m-3" key={index}>
         <div className="form-group">
-          <label className="form-label">answer {index}</label>
+          <label className="form-label">answer {index + 1}</label>
           <input className="form-control" type="text"></input>
         </div>
       </li>
