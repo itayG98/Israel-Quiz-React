@@ -1,6 +1,7 @@
 import { Question } from "../models/question.model";
 
 export class QuestionsService {
+  URL = "http://localhost:3004/questions";
   constructor() {
     // constructor(title, description, answers, correctAnswerIndex)
     this.questions = [
@@ -51,8 +52,10 @@ export class QuestionsService {
       ),
     ];
   }
-
   getQuestions() {
+    fetch(this.URL)
+      .then((response) => response.json())
+      .then((response) => (this.questions = JSON.stringify(response)));
     return this.questions;
   }
   getQuestionsById(id) {
