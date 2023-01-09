@@ -53,9 +53,6 @@ export class QuestionsService {
     ];
   }
   getQuestions() {
-    fetch(this.URL)
-      .then((response) => response.json())
-      .then((response) => (this.questions = JSON.stringify(response)));
     return this.questions;
   }
   getQuestionsById(id) {

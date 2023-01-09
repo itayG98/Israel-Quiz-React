@@ -7,10 +7,10 @@ import AddQuizFrom from "./addQuizForm.component";
 function Quiz() {
   let cursorPointer = { cursor: "pointer" };
   let questionsService = new QuestionsService();
-  let initQuestions = questionsService.getQuestions();
+  let Initquestions = questionsService.getQuestions();
   const [isAddingQuestion, setAddingQuestion] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
-  const [questionsList, setQuestionsList] = useState(initQuestions);
+  const [questionsList, setQuestionsList] = useState(Initquestions);
 
   let onToggleAddQuestion = function () {
     if (!isAddingQuestion) {
