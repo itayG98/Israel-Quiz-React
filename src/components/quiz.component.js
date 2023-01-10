@@ -67,9 +67,6 @@ function Quiz() {
   };
 
   let onToggleDeleteMode = function () {
-    if (isDeleteMode) {
-    } else {
-    }
     setDeleteMode(!isDeleteMode);
   };
 
@@ -109,6 +106,22 @@ function Quiz() {
     };
   };
 
+  let onAddQuestion = (question) => {
+    let updated = questionsList.slice();
+    updated.push(question);
+    setQuestionsList(updated);
+  };
+
+  let onDelete = function (id) {
+    let index = questionsList.findIndex((q) => q.Id === id);
+    if (index > -1) {
+      let updated = questionsList;
+      updated.splice(index, 1);
+      setQuestionsList(updated);
+      setDeleteMode(false);
+    }
+  };
+
   let quizItemsList = questionsList.map((item, index) => {
     return (
       <div className="col-sm-9" key={item.Id}>
@@ -121,16 +134,20 @@ function Quiz() {
             addQuestionHandler={onAnswerd}
             quizFinished={quizFinished}
           />
+          {isDeleteMode ? (
+            <div className="container-fluid d-flex justify-content-center">
+              <button
+                onClick={() => onDelete(item.Id)}
+                className="btn btn-danger"
+              >
+                Delete
+              </button>
+            </div>
+          ) : undefined}
         </li>
       </div>
     );
   });
-
-  let onAddQuestion = (question) => {
-    let updated = questionsList.slice();
-    updated.push(question);
-    setQuestionsList(updated);
-  };
 
   return (
     <div className="quiz container-fluid">
@@ -139,13 +156,13 @@ function Quiz() {
           <h1 className=" text-light ">The Israeli Quiz</h1>
           <div className="ms-5">
             <button
-              className="btn btn-outline-light"
+              className="btn btn-outline-light ms-2"
               onClick={onToggleAddQuestion}
             >
               Add Question
             </button>
             <button
-              className="btn btn-outline-danger"
+              className="btn btn-outline-danger ms-2"
               onClick={onToggleDeleteMode}
             >
               Delete Mode
