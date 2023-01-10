@@ -54,10 +54,9 @@ export class QuestionsService {
       ),
     ];
   }
-  async getQuestions() {
-    return fetch(URL)
-      .then((res) => res.json())
-      .then((jsonStr) => JSON.parse(jsonStr));
+
+  getQuestions() {
+    return this.questions.slice();
   }
 
   getQuestionsById(id) {
@@ -66,6 +65,28 @@ export class QuestionsService {
 
   AddQuestion(question) {
     this.questions.push(question);
+  }
+
+  async postQuestions(question) {
+    fetch(this.URL, {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(...question),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+  async getQuestionsAsync() {
+    const response = await fetch(URL);
+    const data = response.json;
+    return Question.fromJson(data);
   }
 }
 

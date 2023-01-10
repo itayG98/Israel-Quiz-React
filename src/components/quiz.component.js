@@ -6,8 +6,10 @@ import AddQuizFrom from "./addQuizForm.component";
 
 async function Quiz() {
   let cursorPointer = { cursor: "pointer" };
-  let questionsService = new QuestionsService();
-  let Initquestions = await questionsService.getQuestions();
+  let InitquestionsService = new QuestionsService();
+  const [questionsService, setquestionsService] =
+    useState(InitquestionsService);
+  let Initquestions = await questionsService.getQuestionsAsync();
   const [isAddingQuestion, setAddingQuestion] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
   const [questionsList, setQuestionsList] = useState(Initquestions);
@@ -56,7 +58,7 @@ async function Quiz() {
     };
   };
 
-  let quizItemsList = questionsList.map((item) => {
+  let quizItemsList = await questionsList.map((item) => {
     return (
       <div className="col-sm-9" key={item.Id}>
         <li className="list-group-item m-3" id={item.Id}>
