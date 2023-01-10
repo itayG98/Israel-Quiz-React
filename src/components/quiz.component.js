@@ -4,12 +4,55 @@ import Question from "../models/question.model";
 import QuestionsService from "../services/questions.service";
 import AddQuizFrom from "./addQuizForm.component";
 
-async function Quiz() {
+function Quiz() {
+  let Initquestions = [
+    new Question(
+      "israel state",
+      "when did israel state was established?",
+      ["1950", "1920", "1948", "1947"],
+      2
+    ),
+    new Question(
+      "Prime minisiters",
+      "Which Prime minisiter serve the most in term of office in years?",
+      [
+        "Benjamin Netanyahu",
+        "David Ben-Gurion",
+        "Ariel Sharon",
+        "Naftali Bennett",
+      ],
+      0
+    ),
+    new Question(
+      "capital city",
+      "What is the capital of Israel?",
+      ["Tel Aviv", "Gan Yavne", "Jersusalem", "Shuk Mahne Yehuda"],
+      2
+    ),
+    new Question(
+      "acronym",
+      "What is ILS?",
+      [
+        "Israeli new Shekel",
+        "Israel new Shimon",
+        "Israel new State",
+        "Nothing",
+      ],
+      0
+    ),
+    new Question(
+      "Colors",
+      "Which color Israels flag have?",
+      [
+        "Red and blue",
+        "Off-white and green",
+        "Blue and white",
+        "Green , yellow and red",
+      ],
+      2
+    ),
+  ];
   let cursorPointer = { cursor: "pointer" };
-  let InitquestionsService = new QuestionsService();
-  const [questionsService, setquestionsService] =
-    useState(InitquestionsService);
-  let Initquestions = await questionsService.getQuestionsAsync();
   const [isAddingQuestion, setAddingQuestion] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
   const [questionsList, setQuestionsList] = useState(Initquestions);
@@ -58,7 +101,7 @@ async function Quiz() {
     };
   };
 
-  let quizItemsList = await questionsList.map((item) => {
+  let quizItemsList = questionsList.map((item) => {
     return (
       <div className="col-sm-9" key={item.Id}>
         <li className="list-group-item m-3" id={item.Id}>
@@ -76,9 +119,7 @@ async function Quiz() {
   });
 
   let onAddQuestion = (question) => {
-    questionsService.AddQuestion(question);
-    let updated = questionsService.getQuestions();
-    setQuestionsList(updated);
+    setQuestionsList(questionsList.push(question));
   };
 
   return (
