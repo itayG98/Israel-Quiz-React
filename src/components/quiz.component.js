@@ -101,7 +101,7 @@ function Quiz() {
     };
   };
 
-  let quizItemsList = questionsList.map((item) => {
+  let quizItemsList = questionsList.map((item, index) => {
     return (
       <div className="col-sm-9" key={item.Id}>
         <li className="list-group-item m-3" id={item.Id}>
@@ -119,7 +119,9 @@ function Quiz() {
   });
 
   let onAddQuestion = (question) => {
-    setQuestionsList(questionsList.push(question));
+    let updated = questionsList.slice();
+    updated.push(question);
+    setQuestionsList(updated);
   };
 
   return (
