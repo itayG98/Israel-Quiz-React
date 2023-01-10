@@ -54,6 +54,7 @@ function Quiz() {
   ];
   let cursorPointer = { cursor: "pointer" };
   const [isAddingQuestion, setAddingQuestion] = useState(false);
+  const [isDeleteMode, setDeleteMode] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
   const [questionsList, setQuestionsList] = useState(Initquestions);
 
@@ -63,6 +64,13 @@ function Quiz() {
     } else {
       setAddingQuestion(false);
     }
+  };
+
+  let onToggleDeleteMode = function () {
+    if (isDeleteMode) {
+    } else {
+    }
+    setDeleteMode(!isDeleteMode);
   };
 
   let onSubmit = function () {
@@ -129,12 +137,20 @@ function Quiz() {
       <nav className="navbar bg-success sticky-top">
         <div className="container-fluid">
           <h1 className=" text-light ">The Israeli Quiz</h1>
-          <button
-            className="btn btn-outline-light"
-            onClick={onToggleAddQuestion}
-          >
-            Add Question
-          </button>
+          <div className="ms-5">
+            <button
+              className="btn btn-outline-light"
+              onClick={onToggleAddQuestion}
+            >
+              Add Question
+            </button>
+            <button
+              className="btn btn-outline-danger"
+              onClick={onToggleDeleteMode}
+            >
+              Delete Mode
+            </button>
+          </div>
         </div>
       </nav>
       <div className="row-sm-10">
