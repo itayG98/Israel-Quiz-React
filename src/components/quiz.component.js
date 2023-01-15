@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import QuestionItem from "../components/questionItem.component";
-import Question from "../models/question.model";
 import QuestionsService from "../services/questions.service";
 import AddQuizFrom from "./addQuizForm.component";
 
@@ -80,7 +79,7 @@ function Quiz() {
     }
   };
 
-  let quizItemsList = questionsList.map((item, index) => {
+  let quizItemsList = questionsList.map((item) => {
     return (
       <div className="col-sm-9" key={item.Id}>
         <li className="list-group-item m-3" id={item.Id}>
