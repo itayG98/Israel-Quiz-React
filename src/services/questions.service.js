@@ -17,7 +17,6 @@ export class QuestionsService {
 
   post(question) {
     question.id = 0;
-    question.Id = 0;
     return axios.post(URL, question);
   }
 

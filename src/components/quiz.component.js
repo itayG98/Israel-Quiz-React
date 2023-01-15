@@ -50,7 +50,7 @@ function Quiz() {
   };
 
   let onAnswerd = function (id, index) {
-    let questionNumber = questionsList.findIndex((elem) => elem.Id === id);
+    let questionNumber = questionsList.findIndex((elem) => elem.id === id);
     if (questionNumber === -1) return undefined;
     questionsList[questionNumber].IsAnswered = true;
     questionsList[questionNumber].choosed = index;
@@ -64,27 +64,38 @@ function Quiz() {
   };
 
   let onAddQuestion = (question) => {
-    let updated = questionsList.slice();
-    updated.push(question);
-    setQuestionsList(updated);
+    if (question) {
+      let newQuestion = { ...question, id: 0 };
+      questionsService.post(newQuestion).then(
+        (resp) => {
+          if (resp.status === 200) {
+            setAddingQuestion(false);
+          }
+        },
+        (err) => {
+          console.log(err.message);
+        }
+      );
+    }
   };
 
   let onDelete = function (id) {
-    let index = questionsList.findIndex((q) => q.Id === id);
+    let index = questionsList.findIndex((q) => q.id === id);
     if (index > -1) {
-      let updated = questionsList;
-      updated.splice(index, 1);
-      setQuestionsList(updated);
-      setDeleteMode(false);
+      questionsService.delete(id).then((resp) => {
+        if (resp.statusText === 200) {
+          setDeleteMode(false);
+        }
+      });
     }
   };
 
   let quizItemsList = questionsList.map((item) => {
     return (
-      <div className="col-sm-9" key={item.Id}>
-        <li className="list-group-item m-3" id={item.Id}>
+      <div className="col-sm-9" key={item.id}>
+        <li className="list-group-item m-3" id={item.id}>
           <QuestionItem
-            id={item.Id}
+            id={item.id}
             answers={item.answers}
             description={item.description}
             title={item.title}
@@ -94,7 +105,7 @@ function Quiz() {
           {isDeleteMode ? (
             <div className="container-fluid d-flex justify-content-center">
               <button
-                onClick={() => onDelete(item.Id)}
+                onClick={() => onDelete(item.id)}
                 className="btn btn-danger"
               >
                 Delete

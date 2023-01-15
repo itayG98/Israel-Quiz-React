@@ -37,7 +37,7 @@ function QuestionItem(props) {
 
   let answersList = props.answers.map((answer, index) => {
     return (
-      <li className="list-group-item m-3" key={index}>
+      <li className="list-group-item m-3" key={answer.id}>
         <a
           onClick={(event) => onAnswer(event, index)}
           className={"form-control btn " + classes(index)}
