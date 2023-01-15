@@ -12,7 +12,7 @@ function AddQuizFrom(props) {
       let title = document.querySelector("input[name=title]").value;
       let description = document.querySelector("input[name=description]").value;
       let answers = [];
-      let correctAnswerIndex = document.querySelector(
+      let correctAnswerIndex = +document.querySelector(
         "input[name=options]:checked"
       ).value;
       let answersInputs = document.querySelectorAll("input.answer");

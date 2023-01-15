@@ -97,6 +97,7 @@ function Quiz() {
           <QuestionItem
             id={item.id}
             answers={item.answers}
+            correctIndex={item.correctAnswerIndex}
             description={item.description}
             title={item.title}
             addQuestionHandler={onAnswerd}

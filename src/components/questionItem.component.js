@@ -21,8 +21,8 @@ function QuestionItem(props) {
   let quizFinished = props.quizFinished;
   let questionRetrived = {
     id: props.id,
-    clickedIndex: null,
     correctIndex: props.correctIndex,
+    clickedIndex: null,
     IsAnswered: null,
   };
 
@@ -37,7 +37,7 @@ function QuestionItem(props) {
 
   let answersList = props.answers.map((answer, index) => {
     return (
-      <li className="list-group-item m-3" key={answer.id}>
+      <li className="list-group-item m-3" key={index}>
         <a
           onClick={(event) => onAnswer(event, index)}
           className={"form-control btn " + classes(index)}
