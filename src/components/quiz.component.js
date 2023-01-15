@@ -1,62 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import QuestionItem from "../components/questionItem.component";
 import Question from "../models/question.model";
 import QuestionsService from "../services/questions.service";
 import AddQuizFrom from "./addQuizForm.component";
 
 function Quiz() {
-  let Initquestions = [
-    new Question(
-      "israel state",
-      "when did israel state was established?",
-      ["1950", "1920", "1948", "1947"],
-      2
-    ),
-    new Question(
-      "Prime minisiters",
-      "Which Prime minisiter serve the most in term of office in years?",
-      [
-        "Benjamin Netanyahu",
-        "David Ben-Gurion",
-        "Ariel Sharon",
-        "Naftali Bennett",
-      ],
-      0
-    ),
-    new Question(
-      "capital city",
-      "What is the capital of Israel?",
-      ["Tel Aviv", "Gan Yavne", "Jersusalem", "Shuk Mahne Yehuda"],
-      2
-    ),
-    new Question(
-      "acronym",
-      "What is ILS?",
-      [
-        "Israeli new Shekel",
-        "Israel new Shimon",
-        "Israel new State",
-        "Nothing",
-      ],
-      0
-    ),
-    new Question(
-      "Colors",
-      "Which color Israels flag have?",
-      [
-        "Red and blue",
-        "Off-white and green",
-        "Blue and white",
-        "Green , yellow and red",
-      ],
-      2
-    ),
-  ];
   let cursorPointer = { cursor: "pointer" };
+  const questionsService = new QuestionsService();
   const [isAddingQuestion, setAddingQuestion] = useState(false);
   const [isDeleteMode, setDeleteMode] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
-  const [questionsList, setQuestionsList] = useState(Initquestions);
+  const [questionsList, setQuestionsList] = useState([]);
+
+  useEffect(() => {
+    questionsService.get().then((response) => setQuestionsList(response.data));
+  }, []);
 
   let onToggleAddQuestion = function () {
     if (!isAddingQuestion) {
